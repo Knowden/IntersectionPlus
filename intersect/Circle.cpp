@@ -16,6 +16,27 @@ Circle::Circle(long double x, long double y, long double r) {
     this->r = r;
 }
 
+void Circle::removeImpossiblePoints(vector<Point>& result, Line line) {
+    vector<Point>::iterator iter_point;
+    vector<Point>::iterator iter_point_temp;
+
+    for (iter_point = result.begin(); iter_point != result.end();) {
+        if (line.k == INT_MAX) {
+            if (iter_point->y > line.rightLimit || iter_point->y < line.leftLimit) {
+                iter_point_temp = iter_point;
+                result.erase(iter_point_temp);
+            }
+        }
+        else {
+            if (iter_point->x > line.rightLimit || iter_point->x < line.leftLimit) {
+                iter_point_temp = iter_point;
+                result.erase(iter_point_temp);
+            }
+        }
+        iter_point++;
+    }
+}
+
 vector<Point> Circle::getIntersectionWith(Line& line) {
     vector<Point> result;
 
@@ -24,11 +45,13 @@ vector<Point> Circle::getIntersectionWith(Line& line) {
         return result;
     }
 
-    if (line.k == INT_MAX) {
-        return calculatePointsAtX(line.b);
-    }
-    
-    return calculateIntersectionWithNormalLine(line);
+    if (line.k == INT_MAX)
+        result = calculatePointsAtX(line.b);
+    else
+        result = calculateIntersectionWithNormalLine(line);
+
+    removeImpossiblePoints(result, line);
+    return result;
 }
 
 vector<Point> Circle::calculatePointsAtX(long double x) {

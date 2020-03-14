@@ -27,8 +27,8 @@ private:
 	void build_ray(std::vector<std::string> cleaned_input);
 	void build_segment_line(std::vector<std::string> cleaned_input);
 
-	//void remove_impossible_points(std::vector<Point>& result);
-	//bool is_point_impossible(Point point);
+	void remove_impossible_points(std::vector<Point>& result, Line line);
+	bool is_appear_in_line(Point point, Line line);
 
 public:
 	long double k; // Ð±ÂÊ
