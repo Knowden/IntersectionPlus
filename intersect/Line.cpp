@@ -2,6 +2,7 @@
 #include "Point.h"
 #include "Line.h"
 #include "StringUtil.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -21,12 +22,76 @@ Line::Line(const string& ori_input) {
         b = p1.y - k * p1.x;
     }
 
-    this->Line::Line(k, b);
+    this->k = k;
+    this->b = b;
+
+    if (infos.at(0) == "L") {
+        build_straight_line(infos);
+    }
+    else if (infos.at(0) == "R") {
+        build_ray(infos);
+    }
+    else {
+        build_segment_line(infos);
+    }
 }
 
 Line::Line(long double k, long double b) {
     this->k = k;
     this->b = b;
+    this->leftLimit = (long double) INT_MIN;
+    this->rightLimit = INT_MAX;
+}
+
+void Line::build_straight_line(vector<string> infos) {
+    this->leftLimit = (long double)INT_MIN;
+    this->rightLimit = INT_MAX;
+}
+
+void Line::build_segment_line(vector<string> infos) {
+    if (this->k != INT_MAX) {
+        int x1 = stoi(infos.at(1));
+        int x2 = stoi(infos.at(3));
+        
+        this->leftLimit = min(x1, x2);
+        this->rightLimit = max(x1, x2);
+    }
+    else {
+        int y1 = stoi(infos.at(2));
+        int y2 = stoi(infos.at(4));
+
+        this->leftLimit = min(y1, y2);
+        this->rightLimit = max(y1, y2);
+    }
+}
+
+void Line::build_ray(vector<string> infos) {
+    if (this->k != INT_MAX) {
+        int x1 = stoi(infos.at(1));
+        int x2 = stoi(infos.at(3));
+
+        if (x1 < x2) {
+            this->leftLimit = x1;
+            this->rightLimit = INT_MAX;
+        }
+        else {
+            this->leftLimit = (long double)INT_MIN;
+            this->rightLimit = x1;
+        }
+    }
+    else {
+        int y1 = stoi(infos.at(2));
+        int y2 = stoi(infos.at(4));
+
+        if (y1 > y2) {
+            this->leftLimit = (long double)INT_MIN;
+            this->rightLimit = y1;
+        }
+        else {
+            this->leftLimit = y1;
+            this->rightLimit = INT_MAX;
+        }
+    }
 }
 
 Point* Line::get_intersection_with(Line& another) {

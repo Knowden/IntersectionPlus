@@ -26,6 +26,9 @@ public:
             result.push_back(s.substr(pos1, pos2 - pos1));
 
             pos1 = pos2 + c.size();
+            while (s.at(pos1) == ' ') {
+                pos1++;
+            }
             pos2 = s.find(c, pos1);
         }
         if (pos1 != s.length())

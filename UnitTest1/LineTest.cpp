@@ -60,7 +60,7 @@ public:
 	}
 
 	TEST_METHOD(TestLinePartFromCricle) {
-		Line line(-1, 10);
+		Line line("L 0 10 10 0");
 		Circle circle("C 0 0 1");
 
 		std::vector<Point> result = line.get_intersection_with(circle);
@@ -69,7 +69,8 @@ public:
 	}
 
 	TEST_METHOD(TestLineTangentWithCircle) {
-		Line line(-1, sqrt(2));
+		Line line("L 0 1 1 0");
+		line.b = sqrt(2);
 		Circle circle("C 0 0 1");
 
 		std::vector<Point> result = line.get_intersection_with(circle);
@@ -79,12 +80,54 @@ public:
 	}
 
 	TEST_METHOD(TestLineIntersectWithCircle) {
-		Line line(-1, 1);
+		Line line("L 0 1 1 0");
 		Circle circle("C 0 0 1");
 
 		std::vector<Point> result = line.get_intersection_with(circle);
 
 		Assert::AreEqual(2, (int)result.size());
+	}
+
+	TEST_METHOD(TestBuildNormalLineSegment) {
+		Line line("S 1 1 2 2");
+
+		Assert::AreEqual(1, (int)line.leftLimit);
+		Assert::AreEqual(2, (int)line.rightLimit);
+	}
+
+	TEST_METHOD(TestBuildLineSegmentWithKNotExist) {
+		Line line("S 1 1 1 10");
+
+		Assert::AreEqual(1, (int)line.leftLimit);
+		Assert::AreEqual(10, (int)line.rightLimit);
+	}
+
+	TEST_METHOD(TestBuildNormalRayPointRight) {
+		Line line("R 1 1 10 10");
+
+		Assert::AreEqual(1, (int)line.leftLimit);
+		Assert::AreEqual(INT_MAX, (int)line.rightLimit);
+	}
+
+	TEST_METHOD(TestBuildNormalRayPointLeft) {
+		Line line("R 1 1 -10 -10");
+
+		Assert::AreEqual(INT_MIN, (int)line.leftLimit);
+		Assert::AreEqual(1, (int)line.rightLimit);
+	}
+
+	TEST_METHOD(TestBuildRayWithKNotExistPointUp) {
+		Line line("R 1 1 1 10");
+
+		Assert::AreEqual(1, (int)line.leftLimit);
+		Assert::AreEqual(INT_MAX, (int)line.rightLimit);
+	}
+
+	TEST_METHOD(TestBuildRayWithKNotExistPointDown) {
+		Line line("R 1 1 1 -10");
+
+		Assert::AreEqual(INT_MIN, (int)line.leftLimit);
+		Assert::AreEqual(1, (int)line.rightLimit);
 	}
 
 	};
