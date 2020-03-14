@@ -41,11 +41,15 @@ Line::Line(long double k, long double b) {
     this->b = b;
     this->leftLimit = (long double) INT_MIN;
     this->rightLimit = INT_MAX;
+
+    this->type = LineType::STRAIGHT;
 }
 
 void Line::build_straight_line(vector<string> infos) {
     this->leftLimit = (long double)INT_MIN;
     this->rightLimit = INT_MAX;
+
+    this->type = LineType::STRAIGHT;
 }
 
 void Line::build_segment_line(vector<string> infos) {
@@ -63,6 +67,8 @@ void Line::build_segment_line(vector<string> infos) {
         this->leftLimit = min(y1, y2);
         this->rightLimit = max(y1, y2);
     }
+
+    this->type = LineType::SEGMENT;
 }
 
 void Line::build_ray(vector<string> infos) {
@@ -92,25 +98,31 @@ void Line::build_ray(vector<string> infos) {
             this->rightLimit = INT_MAX;
         }
     }
+
+    this->type = LineType::RAY;
 }
 
-Point* Line::get_intersection_with(Line& another) {
+vector<Point> Line::get_intersection_with(Line& another) {
+    vector<Point> result;
+
     if (this->k == another.k) {
-        return nullptr;
+        return result;
     }
 
     if (this->k == INT_MAX) {
-        return new Point(this->b, another.k * this->b + another.b);
+        result.push_back(Point(this->b, another.k * this->b + another.b));
     }
     else if (another.k == INT_MAX) {
-        return new Point(another.b, this->k * another.b + this->b);
+        result.push_back(Point(another.b, this->k * another.b + this->b));
     }
     else {
         long double x = (another.b - this->b) / (this->k - another.k);
         long double y = this->k * x + this->b;
 
-        return new Point(x, y);
+        result.push_back(Point(x, y));
     }
+
+    return result;
 }
 
 vector<Point> Line::get_intersection_with(Circle& another) {

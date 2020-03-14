@@ -27,7 +27,7 @@ vector<Point> Circle::getIntersectionWith(Line& line) {
     if (line.k == INT_MAX) {
         return calculatePointsAtX(line.b);
     }
-
+    
     return calculateIntersectionWithNormalLine(line);
 }
 

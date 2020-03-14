@@ -44,19 +44,23 @@ public:
 		Line line1("L 1 1 2 2");
 		Line line2("L 1 0 2 1");
 
-		Point* result = line1.get_intersection_with(line2);
+		std::vector<Point> result = line1.get_intersection_with(line2);
 
-		Assert::IsNull(result);
+		Assert::AreEqual(0, (int)result.size());
 	}
 
 	TEST_METHOD(TestLineWithNotParallelWithAnother) {
 		Line line1("L 1 1 2 2");
 		Line line2("L -1 1 1 -1");
 
-		Point* result = line1.get_intersection_with(line2);
+		std::vector<Point> result = line1.get_intersection_with(line2);
 
-		Assert::AreEqual(0.0, (double)result->x);
-		Assert::AreEqual(0.0, (double)result->y);
+		Assert::AreEqual(1, (int) result.size());
+
+		Point point = result.at(0);
+
+		Assert::AreEqual(0.0, (double)point.x);
+		Assert::AreEqual(0.0, (double)point.y);
 	}
 
 	TEST_METHOD(TestLinePartFromCricle) {

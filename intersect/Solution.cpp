@@ -40,9 +40,9 @@ void Solution::count_line_with_line() {
 
 			for (Line line1 : line_list1) {
 				for (Line line2 : line_list2) {
-					Point* p = line1.get_intersection_with(line2);
-					if (p != nullptr) {
-						result_set.insert(*p);
+					vector<Point> points = line1.get_intersection_with(line2);
+					for (Point point : points) {
+						result_set.insert(point);
 					}
 				}
 			}

@@ -7,6 +7,10 @@
 class Point;
 class Circle;
 
+enum class LineType {
+	SEGMENT, RAY, STRAIGHT
+};
+
 /**
 线通用类，同时支持直线、射线、线段
 
@@ -23,6 +27,9 @@ private:
 	void build_ray(std::vector<std::string> cleaned_input);
 	void build_segment_line(std::vector<std::string> cleaned_input);
 
+	//void remove_impossible_points(std::vector<Point>& result);
+	//bool is_point_impossible(Point point);
+
 public:
 	long double k; // 斜率
 	long double b; // 截距
@@ -30,10 +37,12 @@ public:
 	long double leftLimit;
 	long double rightLimit;
 
+	LineType type;
+
 	Line(const std::string& ori_input);
 	Line(long double k, long double b);
 
-	Point* get_intersection_with(Line& another);
+	std::vector<Point> get_intersection_with(Line& another);
 	std::vector<Point> get_intersection_with(Circle& another);
 };
 
