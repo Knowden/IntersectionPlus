@@ -3,48 +3,32 @@
 
 using namespace std;
 
-Solution::Solution() {
-	this->line_map.max_load_factor(0.6f);
-}
-
 void Solution::add_component(std::string ori_input) {
-	if (StringUtil::trim(ori_input).at(0) == 'L') {
-		Line line(ori_input);
-		if (line_map.count(line.k) == 0) {
-			line_map[line.k] = *new vector<Line>();
-		}
-		line_map.at(line.k).push_back(line);
+	if (StringUtil::trim(ori_input).at(0) == 'C') {
+		circle_list.push_back(Circle(ori_input));
 	}
 	else {
-		Circle circle(ori_input);
-		circle_list.push_back(circle);
+		line_list.push_back(Line(ori_input));
 	}
 }
 
 int Solution::count_result() {
 	result_set = *new unordered_set<Point>(1000000);
 	result_set.max_load_factor(0.6f);
+
 	count_line_with_line();
 	count_circle_with_circle();
 	count_line_with_circle();
+	
 	return (int)result_set.size();
 }
 
 void Solution::count_line_with_line() {
-	for (unordered_map<long double, vector<Line>>::iterator i = line_map.begin(); i != line_map.end(); i++) {
-		unordered_map<long double, vector<Line>>::iterator temp = i;
-		temp++;
-		for (unordered_map<long double, vector<Line>>::iterator j = temp; j != line_map.end(); j++) {
-			vector<Line> line_list1 = i->second;
-			vector<Line> line_list2 = j->second;
-
-			for (Line line1 : line_list1) {
-				for (Line line2 : line_list2) {
-					vector<Point> points = line1.get_intersection_with(line2);
-					for (Point point : points) {
-						result_set.insert(point);
-					}
-				}
+	for (int i = 0; i < (int) line_list.size(); i++) {
+		for (int j = i + 1; j < (int) line_list.size(); j++) {
+			vector<Point> result = (line_list.at(i)).get_intersection_with(line_list.at(j));
+			for (Point point : result) {
+				result_set.insert(point);
 			}
 		}
 	}
@@ -62,14 +46,12 @@ void Solution::count_circle_with_circle() {
 }
 
 void Solution::count_line_with_circle() {
-	for (unordered_map<long double, vector<Line>>::iterator i = line_map.begin(); i != line_map.end(); i++) {
-		vector<Line> line_list = i->second;
-		for (Line line : line_list) {
-			for (Circle circle : circle_list) {
-				vector<Point> v = circle.getIntersectionWith(line);
-				for (Point point : v) {
-					result_set.insert(point);
-				}
+	for (Line line : line_list) {
+		for (Circle circle : circle_list) {
+			vector<Point> result = line.get_intersection_with(circle);
+			
+			for (Point point : result) {
+				result_set.insert(point);
 			}
 		}
 	}

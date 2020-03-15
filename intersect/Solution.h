@@ -12,7 +12,7 @@
 
 class Solution {
 private:
-	std::unordered_map<long double, std::vector<Line>> line_map;
+	std::vector<Line> line_list;
 	std::vector<Circle> circle_list;
 	std::unordered_set<Point> result_set;
 
@@ -21,8 +21,6 @@ private:
 	void count_line_with_circle();
 
 public:
-	Solution();
-
 	void add_component(std::string ori_input);
 	int count_result();
 };

@@ -27,5 +27,6 @@ public:
 
 		Assert::AreEqual(5, s.count_result());
 	}
+
 	};
 }
