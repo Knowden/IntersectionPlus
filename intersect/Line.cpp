@@ -5,6 +5,7 @@
 #include "MathUtil.h"
 #include <algorithm>
 #include <iostream>
+#include <regex>
 
 using namespace std;
 
@@ -15,9 +16,20 @@ ostream& operator<<(ostream& out, Line& line) {
 
 
 Line::Line(const string& ori_input) {
-    vector<string> infos = StringUtil::split(StringUtil::trim(ori_input), " ");
+    vector<string> infos = split_input_to_infos(ori_input);
+    
+    for (int i = 1; i <= 4; i++) {
+        double value = stod(infos.at(i));
+        if (value > 100000 || value < -100000) {
+            throw exception("存在坐标超出范围限制");
+        }
+    }
+
     const Point p1(stod(infos.at(1)), stod(infos.at(2)));
     const Point p2(stod(infos.at(3)), stod(infos.at(4)));
+    if (p1 == p2) {
+        throw exception("存在输入点重合");
+    }
 
     long double k = 0;
     long double b = 0;
@@ -42,6 +54,19 @@ Line::Line(const string& ori_input) {
     else {
         build_segment_line(infos);
     }
+}
+
+vector<string> Line::split_input_to_infos(string ori_input) {
+    vector<string> result;
+
+    std::regex split_flag("\\s+");
+    std::sregex_token_iterator pos(ori_input.begin(), ori_input.end(), split_flag, -1);
+    decltype(pos) end;
+    for (; pos != end; ++pos) {
+        result.push_back(pos->str());
+    }
+
+    return result;
 }
 
 Line::Line(long double k, long double b) {

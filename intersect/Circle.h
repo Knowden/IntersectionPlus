@@ -10,6 +10,8 @@ class Line;
 
 class Circle {
 private:
+	std::vector<std::string> splitOriInputIntoInfos(std::string ori_input);
+
 	std::vector<Point> calculatePointsAtX(long double x);
 	std::vector<Point> calculateIntersectionWithNormalLine(Line& line);
 

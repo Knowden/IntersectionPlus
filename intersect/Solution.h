@@ -20,6 +20,8 @@ private:
 	void count_circle_with_circle();
 	void count_line_with_circle();
 
+	std::string normalize_string(std::string ori_input);
+
 public:
 	void add_component(std::string ori_input);
 	int count_result();

@@ -1,15 +1,32 @@
 #include "Solution.h"
 #include "StringUtil.h"
+#include <regex>
 
 using namespace std;
 
-void Solution::add_component(std::string ori_input) {
-	if (StringUtil::trim(ori_input).at(0) == 'C') {
-		circle_list.push_back(Circle(ori_input));
+void Solution::add_component(string ori_input) {
+	string checked_input = normalize_string(ori_input);
+	
+	if (checked_input.at(0) == 'C') {
+		circle_list.push_back(Circle(checked_input));
 	}
 	else {
-		line_list.push_back(Line(ori_input));
+		line_list.push_back(Line(checked_input));
 	}
+}
+
+std::string Solution::normalize_string(string ori_input) {
+	string trimed_str = StringUtil::trim(ori_input);
+	string number = "((0)|([123456789]\\d{0,5}))";
+	regex reg("^(([LRS]\\s+-?" + number + "\\s+-?" + number +"\\s+-?" + number + "\\s+-?" + number + ")|" +
+			   "(C\\s+-?" + number + "\\s+-?" + number + "\\s+[123456789]\\d{0,5}))$");
+	
+	if (!std::regex_match(trimed_str, reg)) {
+		string msg = "输入格式存在错误 : " + ori_input;
+		throw exception(msg.c_str());
+	}
+
+	return trimed_str;
 }
 
 int Solution::count_result() {

@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="ImpossiblePointTest.cpp" />
+    <ClCompile Include="InputHandlerTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

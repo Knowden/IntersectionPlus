@@ -24,6 +24,8 @@ enum class LineType {
 */
 class Line {
 private:
+	std::vector<std::string> split_input_to_infos(std::string ori_input);
+
 	void build_straight_line(std::vector<std::string> cleaned_input);
 	void build_ray(std::vector<std::string> cleaned_input);
 	void build_segment_line(std::vector<std::string> cleaned_input);
@@ -44,12 +46,12 @@ public:
 	Line(const std::string& ori_input);
 	Line(long double k, long double b);
 
-	friend std::ostream& operator<<(std::ostream& out, const Line& line);
-
 	std::vector<Point> get_intersection_with(Line& another);
 	std::vector<Point> get_intersection_with(Circle& another);
 
 	bool contains_point(Point point);
+
+	friend std::ostream& operator<<(std::ostream& out, const Line& line);
 };
 
 #endif // !LINE_H

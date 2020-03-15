@@ -2,6 +2,7 @@
 #include "Line.h"
 #include "Point.h"
 #include "StringUtil.h"
+#include <regex>
 
 using namespace std;
 
@@ -12,11 +13,28 @@ ostream& operator<<(ostream& out, const Circle& circle) {
 }
 
 Circle::Circle(const string& input) {
-    vector<string> infos = StringUtil::split(StringUtil::trim(input), " ");
+    vector<string> infos = splitOriInputIntoInfos(input);
     this->Circle::Circle(stod(infos.at(1)), stod(infos.at(2)), stod(infos.at(3)));
 }
 
+vector<string> Circle::splitOriInputIntoInfos(string ori_input) {
+    vector<string> result;
+
+    regex reg("\\s+");
+    sregex_token_iterator pos(ori_input.begin(), ori_input.end(), reg, -1);
+    decltype(pos) end;
+    for (; pos != end; ++pos) {
+        result.push_back(pos->str());
+    }
+
+    return result;
+}
+
 Circle::Circle(long double x, long double y, long double r) {
+    if (x > 100000 || x < -100000 || y > 100000 || y < -100000 || r > 100000) {
+        throw exception("数据超出范围限制");
+    }
+
     this->center = new Point(x, y);
     this->r = r;
 }
