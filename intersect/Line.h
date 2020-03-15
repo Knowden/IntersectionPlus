@@ -28,9 +28,9 @@ private:
 	void build_ray(std::vector<std::string> cleaned_input);
 	void build_segment_line(std::vector<std::string> cleaned_input);
 
-	void remove_impossible_points(std::vector<Point>& result, Line line);
+	std::vector<Point> handle_line_collinear(Line another);
 
-	friend ostream& operator<<(ostream& out, Line& line);
+	void remove_impossible_points(std::vector<Point>& result, Line line);
 
 public:
 	long double k; // Ð±ÂÊ
@@ -43,6 +43,8 @@ public:
 
 	Line(const std::string& ori_input);
 	Line(long double k, long double b);
+
+	friend std::ostream& operator<<(std::ostream& out, const Line& line);
 
 	std::vector<Point> get_intersection_with(Line& another);
 	std::vector<Point> get_intersection_with(Circle& another);

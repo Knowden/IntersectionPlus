@@ -2,6 +2,7 @@
 #include "Point.h"
 #include "Line.h"
 #include "StringUtil.h"
+#include "MathUtil.h"
 #include <algorithm>
 #include <iostream>
 
@@ -113,7 +114,12 @@ vector<Point> Line::get_intersection_with(Line& another) {
     vector<Point> result;
 
     if (this->k == another.k) {
-        return result;
+        if (this->b != another.b) {
+            return result;
+        }
+        else {
+            return handle_line_collinear(another);
+        }
     }
 
     if (this->k == INT_MAX) {
@@ -128,7 +134,56 @@ vector<Point> Line::get_intersection_with(Line& another) {
 
         result.push_back(Point(x, y));
     }
+
     remove_impossible_points(result, another);
+    return result;
+}
+
+/*
+这个函数十分重要且情况十分复杂，所以特别记录一下各种分支
+1. 共线没有交点
+2. 共线一个交点
+3. 共线多个交点（重合，无数个交点）
+
+下面留一些分析思路，便于日后查错
+1. 若两线中有直线，则必为无数个交点，抛异常
+2. 当两线都不为直线时，可能为0或1或无穷个，根据左右limit判断
+*/
+vector<Point> Line::handle_line_collinear(Line another) {
+    if (this->type == LineType::STRAIGHT || another.type == LineType::STRAIGHT) {
+        throw exception("存在无穷交点的线");
+    }
+
+    vector<Point> result;
+
+    if (this->rightLimit < another.leftLimit || another.rightLimit < this->leftLimit) {
+        // 没有公共交点
+        return result;
+    }
+    else if (MathUtil::d_equal(this->rightLimit, another.leftLimit)) {
+        // 有一个公共交点
+        if (this->k == INT_MAX) {
+            result.push_back(Point(this->b, this->rightLimit));
+        }
+        else {
+            const long double y = this->k * this->rightLimit + this->b;
+            result.push_back(Point(this->rightLimit, y));
+        }
+    }
+    else if (MathUtil::d_equal(another.rightLimit, this->leftLimit)) {
+        if (another.k == INT_MAX) {
+            result.push_back(Point(another.b, another.rightLimit));
+        }
+        else {
+            const long double y = another.k * another.rightLimit + another.b;
+            result.push_back(Point(another.rightLimit, y));
+        }
+    }
+    else {
+        // 无穷个交点
+        throw exception("存在无穷交点的线");
+    }
+
     return result;
 }
 

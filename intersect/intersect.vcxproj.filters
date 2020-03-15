@@ -30,9 +30,6 @@
     <ClCompile Include="Solution.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PointContainer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Circle.h">
@@ -50,7 +47,7 @@
     <ClInclude Include="StringUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PointContainer.h">
+    <ClInclude Include="MathUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

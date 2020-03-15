@@ -155,14 +155,13 @@
     <ClCompile Include="intersect.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Point.cpp" />
-    <ClCompile Include="PointContainer.cpp" />
     <ClCompile Include="Solution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Point.h" />
-    <ClInclude Include="PointContainer.h" />
     <ClInclude Include="Solution.h" />
     <ClInclude Include="StringUtil.h" />
   </ItemGroup>

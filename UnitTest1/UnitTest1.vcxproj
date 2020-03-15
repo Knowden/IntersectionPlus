@@ -169,6 +169,7 @@
     </ClCompile>
     <ClCompile Include="PointTest.cpp" />
     <ClCompile Include="SolutionTest.cpp" />
+    <ClCompile Include="SpecialCaseTest.cpp" />
     <ClCompile Include="StringUtilTest.cpp" />
   </ItemGroup>
   <ItemGroup>

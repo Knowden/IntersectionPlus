@@ -6,7 +6,7 @@
 using namespace std;
 
 
-ostream& operator<<(ostream& out, Circle& circle) {
+ostream& operator<<(ostream& out, const Circle& circle) {
     out << "(x - " << circle.center->x << ") ^ 2 + (y - " << circle.center->y << ") ^ 2 = " << circle.r << " ^ 2";
     return out;
 }

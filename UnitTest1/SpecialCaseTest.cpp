@@ -57,10 +57,13 @@ public:
 	两线段共线，且有多个交点（部分重合），期望抛出异常，这里异常尚未定义，但是必须有异常抛出
 	*/
 	TEST_METHOD(TestTwoSegmentCoverPart) {
-		Line line1("S 0 0 3 3");
-		Line line2("S 1 1 5 5");
+		auto func = [] {
+			Line line1("S 0 0 3 3");
+			Line line2("S 1 1 5 5");
+			line1.get_intersection_with(line2);
+		};
 
-		Assert::ExpectException<std::exception>(line1.get_intersection_with(line2));
+		Assert::ExpectException<std::exception>(func);
 	}
 
 	/*
@@ -89,10 +92,13 @@ public:
 	两线段共线，且有多个交点（部分重合），期望抛出异常，这里异常尚未定义，但是必须有异常抛出
 	*/
 	TEST_METHOD(TestTwoRayCoverPart) {
-		Line line1("S 0 0 3 3");
-		Line line2("S 1 1 5 5");
+		auto func = [] {
+			Line line1("S 0 0 3 3");
+			Line line2("S 1 1 5 5");
+			line1.get_intersection_with(line2);
+		};
 
-		Assert::ExpectException<std::exception>(line1.get_intersection_with(line2));
+		Assert::ExpectException<std::exception>(func);
 	}
 	};
 }
