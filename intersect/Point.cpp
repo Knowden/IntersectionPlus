@@ -7,11 +7,11 @@ Point::Point(long double x, long double y) {
 }
 
 bool Point::operator<(const Point& another) const {
-	if (this->x == another.x && this->y == another.y) {
+	if (MathUtil::d_equal(this->x, another.x) && MathUtil::d_equal(this->y, another.y)) {
 		return false;
 	}
 	
-	if (this->x == another.x) {
+	if (MathUtil::d_equal(this->x, another.x)) {
 		return this->y < another.y;
 	}
 	return this->x < another.x;

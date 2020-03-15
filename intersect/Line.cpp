@@ -33,7 +33,7 @@ Line::Line(const string& ori_input) {
 
     long double k = 0;
     long double b = 0;
-    if (p1.x == p2.x) {
+    if (MathUtil::d_equal(p1.x, p2.x)) {
         k = INT_MAX;
         b = p1.x;
     }
@@ -138,7 +138,7 @@ void Line::build_ray(vector<string> infos) {
 vector<Point> Line::get_intersection_with(Line& another) {
     vector<Point> result;
 
-    if (this->k == another.k) {
+    if (MathUtil::d_equal(this->k, another.k)) {
         if (this->b != another.b) {
             return result;
         }

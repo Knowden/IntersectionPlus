@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "MathUtil.h"
 
 class Line;
 
@@ -26,7 +27,7 @@ namespace std {
     };
 
 	inline bool operator == (const Point& p1, const Point& p2) {
-		return p1.x == p2.x && p1.y == p2.y;
+		return MathUtil::d_equal(p1.x, p2.x) && MathUtil::d_equal(p1.y, p2.y);
 	}
 }
 
