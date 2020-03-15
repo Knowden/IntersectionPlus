@@ -6,6 +6,11 @@
 using namespace std;
 
 
+ostream& operator<<(ostream& out, Circle& circle) {
+    out << "(x - " << circle.center->x << ") ^ 2 + (y - " << circle.center->y << ") ^ 2 = " << circle.r << " ^ 2";
+    return out;
+}
+
 Circle::Circle(const string& input) {
     vector<string> infos = StringUtil::split(StringUtil::trim(input), " ");
     this->Circle::Circle(stod(infos.at(1)), stod(infos.at(2)), stod(infos.at(3)));

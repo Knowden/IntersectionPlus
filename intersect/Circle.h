@@ -14,6 +14,8 @@ private:
 
 	void removeImpossiblePoints(std::vector<Point>& result, Line line);
 
+	friend ostream& operator<<(ostream& out, Circle& circle);
+
 public:
 	Point* center;
 	long double r;

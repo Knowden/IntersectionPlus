@@ -7,6 +7,12 @@
 
 using namespace std;
 
+ostream& operator<<(ostream& out, Line& line) {
+    out << "y = " << line.k << "x + " << line.b;
+    return out;
+}
+
+
 Line::Line(const string& ori_input) {
     vector<string> infos = StringUtil::split(StringUtil::trim(ori_input), " ");
     const Point p1(stod(infos.at(1)), stod(infos.at(2)));

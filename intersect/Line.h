@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Point;
 class Circle;
@@ -28,6 +29,8 @@ private:
 	void build_segment_line(std::vector<std::string> cleaned_input);
 
 	void remove_impossible_points(std::vector<Point>& result, Line line);
+
+	friend ostream& operator<<(ostream& out, Line& line);
 
 public:
 	long double k; // Ð±ÂÊ
