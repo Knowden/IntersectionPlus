@@ -73,8 +73,7 @@ public:
 	}
 
 	TEST_METHOD(TestLineTangentWithCircle) {
-		Line line("L 0 1 1 0");
-		line.b = sqrt(2);
+		Line line(-1, sqrt(2));
 		Circle circle("C 0 0 1");
 
 		std::vector<Point> result = line.get_intersection_with(circle);
