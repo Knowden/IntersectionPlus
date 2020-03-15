@@ -11,6 +11,7 @@ class Circle {
 private:
 	std::vector<Point> calculatePointsAtX(long double x);
 	std::vector<Point> calculateIntersectionWithNormalLine(Line& line);
+
 	void removeImpossiblePoints(std::vector<Point>& result, Line line);
 
 public:

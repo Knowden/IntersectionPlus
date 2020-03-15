@@ -16,27 +16,6 @@ Circle::Circle(long double x, long double y, long double r) {
     this->r = r;
 }
 
-void Circle::removeImpossiblePoints(vector<Point>& result, Line line) {
-    vector<Point>::iterator iter_point;
-    vector<Point>::iterator iter_point_temp;
-
-    for (iter_point = result.begin(); iter_point != result.end();) {
-        if (line.k == INT_MAX) {
-            if (iter_point->y > line.rightLimit || iter_point->y < line.leftLimit) {
-                iter_point_temp = iter_point;
-                result.erase(iter_point_temp);
-            }
-        }
-        else {
-            if (iter_point->x > line.rightLimit || iter_point->x < line.leftLimit) {
-                iter_point_temp = iter_point;
-                result.erase(iter_point_temp);
-            }
-        }
-        iter_point++;
-    }
-}
-
 vector<Point> Circle::getIntersectionWith(Line& line) {
     vector<Point> result;
 
@@ -52,6 +31,19 @@ vector<Point> Circle::getIntersectionWith(Line& line) {
 
     removeImpossiblePoints(result, line);
     return result;
+}
+
+void Circle::removeImpossiblePoints(vector<Point>& result, Line line) {
+    vector<Point>::iterator iter_point = result.begin();
+
+    while (iter_point != result.end()) {
+        if (!line.contains_point(*iter_point)) {
+            iter_point = result.erase(iter_point);
+        }
+        else {
+            iter_point++;
+        }
+    }
 }
 
 vector<Point> Circle::calculatePointsAtX(long double x) {
@@ -80,7 +72,8 @@ vector<Point> Circle::calculateIntersectionWithNormalLine(Line& line) {
     const long double b = 2 * (line.k * t - center->x);
     const long double c = pow(t, 2) + pow(center->x, 2) - pow(r, 2);
 
-    const long double delta = sqrt(b * b - 4 * a * c);
+    long double delta = sqrt(abs(b * b - 4 * a * c));
+    if (delta < 1e-6) delta = 0;
 
     const long double x1 = (-b + delta) / (2 * a);
     const long double x2 = (-b - delta) / (2 * a);

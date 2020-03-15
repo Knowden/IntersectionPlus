@@ -28,7 +28,6 @@ private:
 	void build_segment_line(std::vector<std::string> cleaned_input);
 
 	void remove_impossible_points(std::vector<Point>& result, Line line);
-	bool is_appear_in_line(Point point, Line line);
 
 public:
 	long double k; // Ð±ÂÊ
@@ -44,6 +43,8 @@ public:
 
 	std::vector<Point> get_intersection_with(Line& another);
 	std::vector<Point> get_intersection_with(Circle& another);
+
+	bool contains_point(Point point);
 };
 
 #endif // !LINE_H

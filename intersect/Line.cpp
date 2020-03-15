@@ -131,26 +131,23 @@ vector<Point> Line::get_intersection_with(Circle& another) {
 }
 
 void Line::remove_impossible_points(vector<Point>& result, Line line) {
-    vector<Point>::iterator iter_point;
-    vector<Point>::iterator iter_point_temp;
+    vector<Point>::iterator iter_point = result.begin();
 
-    for (iter_point = result.begin(); iter_point != result.end();) {
-        if (!is_appear_in_line(*iter_point, line)) {
-            iter_point_temp = iter_point;
-            result.erase(iter_point_temp);
-		}
-        if (!is_appear_in_line(*iter_point, *this)) {
-            iter_point_temp = iter_point;
-            result.erase(iter_point_temp);
-		}
-        iter_point++;
+    while (iter_point != result.end()) {
+        if (!this->contains_point(*iter_point) || !line.contains_point(*iter_point)) {
+            iter_point = result.erase(iter_point);
+        }
+        else {
+            iter_point++;
+        }
     }
 }
 
-bool Line::is_appear_in_line(Point point, Line line) {
-    if (line.k == INT_MAX) {
-        return point.y <= line.rightLimit && point.y >= line.leftLimit;
-	} else {
-        return point.x >= line.leftLimit && point.x <= line.rightLimit;
-	}
+bool Line::contains_point(Point point) {
+    if (this->k == INT_MAX) {
+        return point.y >= this->leftLimit && point.y <= this->rightLimit;
+    }
+    else {
+        return point.x >= this->leftLimit && point.x <= this->rightLimit;
+    }
 }
