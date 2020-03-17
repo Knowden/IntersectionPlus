@@ -1,9 +1,11 @@
 #include "Point.h"
 #include "Line.h"
 
+float Point::esp = 1e-7f;
+
 Point::Point(long double x, long double y) {
-	this->x = x;
-	this->y = y;
+	this->x = ((int)round((float)(x + esp) * 1e6f)) / 1e6f;
+	this->y = ((int)round((float)(y + esp) * 1e6f)) / 1e6f;
 }
 
 bool Point::operator<(const Point& another) const {
@@ -22,7 +24,7 @@ long double Point::getDistanceToLine(const Line& line) {
 		return abs(this->x - line.b);
 	}
 
-	long double molecule = abs(line.k * this->x + (-1) * this->y + line.b);
+	long double molecule = abs(line.k * this->x + (-1) * (long double)this->y + line.b);
 	long double denominator = sqrt(pow(line.k, 2) + 1);
 
 	return molecule / denominator;

@@ -28,5 +28,25 @@ public:
 		Assert::AreEqual(5, s.count_result());
 	}
 
+	TEST_METHOD(NormalTest1) {
+		Solution s;
+		s.add_component("S -1 3 2 -1");
+		s.add_component("L -2 2 3 0");
+		s.add_component("R -3 0 4 2");
+
+		s.count_result();
+		Assert::AreEqual(1, s.count_result());
+		int a = 0;
+	}
+
+	TEST_METHOD(NormalTest2) {
+		Solution s;
+		s.add_component("C 3 3 3");
+		s.add_component("L -1 4 5 2");
+		s.add_component("R 2 5 -1 2");
+
+		Assert::AreEqual(5, s.count_result());
+	}
+
 	};
 }

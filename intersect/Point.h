@@ -8,9 +8,12 @@
 class Line;
 
 class Point {
+private:
+	static float esp;
+
 public:
-	long double x;
-	long double y;
+	float x;
+	float y;
 
 	Point(long double x, long double y);
 	bool operator<(const Point& another)const;
@@ -22,7 +25,7 @@ namespace std {
     template <>
     struct hash<Point> {
         size_t operator()(Point const& p) const noexcept {
-            return ((51 + std::hash<long double>()(p.x)) * 51 + std::hash<long double>()(p.y));
+            return ((51 + std::hash<float>()(p.x)) * 51 + std::hash<float>()(p.y));
         }
     };
 
