@@ -73,3 +73,21 @@ void Solution::count_line_with_circle() {
 		}
 	}
 }
+
+void Solution::delete_line_component(int id) {
+	for (auto i = line_list.begin(); i != line_list.end(); i++) {
+		if ((*i).id == id) {
+			line_list.erase(i);
+			break;
+		}
+	}
+}
+
+void Solution::delete_circle_component(int id) {
+	for (auto i = circle_list.begin(); i != circle_list.end(); i++) {
+		if ((*i).id == id) {
+			circle_list.erase(i);
+			break;
+		}
+	}
+}

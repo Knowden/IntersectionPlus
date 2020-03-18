@@ -24,6 +24,8 @@ enum class LineType {
 */
 class Line {
 private:
+	static int AUTO_INCREMENT_ID;
+
 	std::vector<std::string> split_input_to_infos(std::string ori_input);
 
 	void build_straight_line(std::vector<std::string> cleaned_input);
@@ -42,6 +44,8 @@ public:
 	long double rightLimit;
 
 	LineType type;
+
+	int id;
 
 	Line(const std::string& ori_input);
 	Line(long double k, long double b);

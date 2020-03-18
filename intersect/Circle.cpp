@@ -6,6 +6,7 @@
 
 using namespace std;
 
+int Circle::AUTO_INCREMENT_ID = 1;
 
 ostream& operator<<(ostream& out, const Circle& circle) {
     out << "(x - " << circle.center->x << ") ^ 2 + (y - " << circle.center->y << ") ^ 2 = " << circle.r << " ^ 2";
@@ -37,6 +38,7 @@ Circle::Circle(long double x, long double y, long double r) {
 
     this->center = new Point(x, y);
     this->r = r;
+    this->id = AUTO_INCREMENT_ID++;
 }
 
 vector<Point> Circle::getIntersectionWith(Line& line) {

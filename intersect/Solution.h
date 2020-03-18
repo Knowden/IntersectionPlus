@@ -24,6 +24,9 @@ public:
 	std::unordered_set<Point> result_set;
 
 	void add_component(std::string ori_input);
+	void delete_line_component(int id);
+	void delete_circle_component(int id);
+	
 	int count_result();
 };
 

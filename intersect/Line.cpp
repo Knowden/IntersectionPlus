@@ -9,6 +9,8 @@
 
 using namespace std;
 
+int Line::AUTO_INCREMENT_ID = 1;
+
 ostream& operator<<(ostream& out, Line& line) {
     out << "y = " << line.k << "x + " << line.b;
     return out;
@@ -44,6 +46,7 @@ Line::Line(const string& ori_input) {
 
     this->k = k;
     this->b = b;
+    this->id = AUTO_INCREMENT_ID++;
 
     if (infos.at(0) == "L") {
         build_straight_line(infos);

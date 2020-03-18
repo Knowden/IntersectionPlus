@@ -10,6 +10,8 @@ class Line;
 
 class Circle {
 private:
+	static int AUTO_INCREMENT_ID;
+
 	std::vector<std::string> splitOriInputIntoInfos(std::string ori_input);
 
 	std::vector<Point> calculatePointsAtX(long double x);
@@ -20,6 +22,8 @@ private:
 public:
 	Point* center;
 	long double r;
+
+	int id;
 
 	Circle(const std::string& input);
 	Circle(long double x, long double y, long double r);

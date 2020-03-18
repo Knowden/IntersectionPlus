@@ -48,5 +48,60 @@ public:
 		Assert::AreEqual(5, s.count_result());
 	}
 
+	TEST_METHOD(TestDeleteLine) {
+		Solution s;
+		s.add_component("L 0 0 1 1");
+		s.add_component("L 0 0 1 -1");
+		s.add_component("R 0 0 1 -2");
+
+		Assert::AreEqual(3, (int)s.line_list.size());
+
+		int id = s.line_list.at(0).id;
+		s.delete_line_component(id);
+
+		Assert::AreEqual(2, (int)s.line_list.size());
+	}
+
+	TEST_METHOD(TestDeleteRay) {
+		Solution s;
+		s.add_component("R 0 0 1 1");
+		s.add_component("R 0 0 1 -1");
+		s.add_component("L 0 0 1 -2");
+
+		Assert::AreEqual(3, (int)s.line_list.size());
+
+		int id = s.line_list.at(0).id;
+		s.delete_line_component(id);
+
+		Assert::AreEqual(2, (int)s.line_list.size());
+	}
+
+	TEST_METHOD(TestDeleteSegment) {
+		Solution s;
+		s.add_component("S 0 0 1 1");
+		s.add_component("S 0 0 1 -1");
+		s.add_component("L 0 0 1 -2");
+
+		Assert::AreEqual(3, (int)s.line_list.size());
+
+		int id = s.line_list.at(0).id;
+		s.delete_line_component(id);
+
+		Assert::AreEqual(2, (int)s.line_list.size());
+	}
+
+	TEST_METHOD(TestDeleteCircle) {
+		Solution s;
+		s.add_component("C 0 0 1");
+		s.add_component("C 0 0 2");
+
+		Assert::AreEqual(2, (int)s.circle_list.size());
+
+		int id = s.circle_list.at(0).id;
+		s.delete_circle_component(id);
+
+		Assert::AreEqual(1, (int)s.circle_list.size());
+	}
+
 	};
 }
