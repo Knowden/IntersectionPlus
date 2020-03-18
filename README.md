@@ -20,6 +20,9 @@ private:
 
 public:
 	void add_component(std::string component);
+    void delete_line_component(int id);
+	void delete_circle_component(int id);
+    
 	std::unordered_set<Point> get_all_intersection(bool force);
 	std::vector<Line> get_all_line();
 	std::vector<Circle> get_all_circle();
@@ -47,3 +50,11 @@ public:
 #### get_all_circle()
 
 获取当前输入过的所有圆
+
+#### delete_line_component(int id)
+
+根据id删除对应的线
+
+#### delete_circle_component(int id)
+
+根据id删除对应的圆
