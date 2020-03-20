@@ -4,8 +4,9 @@
 float Point::esp = 1e-7f;
 
 Point::Point(long double x, long double y) {
-	this->x = ((int)round((float)(x + esp) * 1e6f)) / 1e6f;
-	this->y = ((int)round((float)(y + esp) * 1e6f)) / 1e6f;
+	this->x = (float)(((long long)round((double)(x + esp) * 1e6)) / 1e6);
+	this->y = (float)(((long long)round((double)(y + esp) * 1e6)) / 1e6);
+	int a = 1;
 }
 
 bool Point::operator<(const Point& another) const {

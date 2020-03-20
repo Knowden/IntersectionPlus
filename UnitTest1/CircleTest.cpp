@@ -4,6 +4,7 @@
 #include <set>
 #include "../intersect/Circle.h"
 #include "../intersect/Point.h"
+#include "../intersect/Solution.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -54,6 +55,15 @@ public:
 		std::vector<Point> result = c1.getIntersectionWith(c2);
 		std::set<Point> set(result.begin(), result.end());
 		Assert::AreEqual(0, (int)set.size());
+	}
+
+	TEST_METHOD(TestCircleRedixLessThanZero) {
+		auto func = [] {
+			Solution s;
+			s.add_component("C 0 0 -1");
+		};
+
+		Assert::ExpectException<std::exception>(func);
 	}
 	};
 }

@@ -67,7 +67,7 @@ public:
 	}
 
 	/*
-	两线段共线，且有一个公共交点（端点）
+	两射线共线，且有一个公共交点（端点）
 	*/
 	TEST_METHOD(TestTwoRayInSameLineHaveOneIntersection) {
 		Line line1("R 1 1 2 2");
@@ -78,7 +78,7 @@ public:
 	}
 
 	/*
-	两线段共线，且无交点
+	两射线共线，且无交点
 	*/
 	TEST_METHOD(TestTwoRayInSameLineHaveNoIntersection) {
 		Line line1("R 0 0 1 1");
@@ -89,7 +89,7 @@ public:
 	}
 
 	/*
-	两线段共线，且有多个交点（部分重合），期望抛出异常，这里异常尚未定义，但是必须有异常抛出
+	两射线共线，且有多个交点（部分重合），期望抛出异常，这里异常尚未定义，但是必须有异常抛出
 	*/
 	TEST_METHOD(TestTwoRayCoverPart) {
 		auto func = [] {

@@ -31,5 +31,12 @@ public:
 
 		Assert::AreEqual(2, (int)set->size());
 	}
+
+	TEST_METHOD(TestBuildPoint) {
+		const Point p1(std::stod("62465"), std::stod("-72593"));
+		const Point p2(std::stod("99641"), std::stod("90324"));
+
+		int a = 1;
+	}
 	};
 }
