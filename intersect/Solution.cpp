@@ -21,7 +21,7 @@ std::string Solution::normalize_string(string ori_input) {
 	regex reg("^(([LRS]\\s+-?" + number + "\\s+-?" + number +"\\s+-?" + number + "\\s+-?" + number + ")|" +
 			   "(C\\s+-?" + number + "\\s+-?" + number + "\\s+[123456789]\\d{0,5}))$");
 	
-	if (!std::regex_match(trimed_str, reg)) {
+	if (trimed_str.length() > 50 || !std::regex_match(trimed_str, reg)) {
 		string msg = "输入格式存在错误 : " + ori_input;
 		throw exception(msg.c_str());
 	}
