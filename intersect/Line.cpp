@@ -23,14 +23,16 @@ Line::Line(const string& ori_input) {
     for (int i = 1; i <= 4; i++) {
         double value = stod(infos.at(i));
         if (value > 100000 || value < -100000) {
-            throw exception("存在坐标超出范围限制");
+            string message = "存在坐标超出范围限制: " + ori_input;
+            throw exception(message.c_str());
         }
     }
 
     const Point p1(stod(infos.at(1)), stod(infos.at(2)));
     const Point p2(stod(infos.at(3)), stod(infos.at(4)));
     if (p1 == p2) {
-        throw exception("存在输入点重合");
+        string message = "存在输入点重合: " + ori_input;
+        throw exception(message.c_str());
     }
 
     long double k = 0;
@@ -79,6 +81,7 @@ Line::Line(long double k, long double b) {
     this->rightLimit = INT_MAX;
 
     this->type = LineType::STRAIGHT;
+    this->id = Line::AUTO_INCREMENT_ID++;
 }
 
 void Line::build_straight_line(vector<string> infos) {
@@ -179,7 +182,9 @@ vector<Point> Line::get_intersection_with(Line& another) {
 */
 vector<Point> Line::handle_line_collinear(Line another) {
     if (this->type == LineType::STRAIGHT || another.type == LineType::STRAIGHT) {
-        throw exception("存在无穷交点的线");
+        string line_str = "x = " + to_string(this->b);
+        string message = "存在无穷交点的线: " + line_str;
+        throw exception(message.c_str());
     }
 
     vector<Point> result;
@@ -209,7 +214,9 @@ vector<Point> Line::handle_line_collinear(Line another) {
     }
     else {
         // 无穷个交点
-        throw exception("存在无穷交点的线");
+        string line_str = "y = " + to_string(this->k) + "*x + (" + to_string(this->b) + ")";
+        string message = "存在无穷交点的线: " + line_str;
+        throw exception(message.c_str());
     }
 
     return result;

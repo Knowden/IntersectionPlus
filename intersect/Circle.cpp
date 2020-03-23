@@ -3,6 +3,8 @@
 #include "Point.h"
 #include "StringUtil.h"
 #include <regex>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -33,7 +35,9 @@ vector<string> Circle::splitOriInputIntoInfos(string ori_input) {
 
 Circle::Circle(long double x, long double y, long double r) {
     if (x > 100000 || x < -100000 || y > 100000 || y < -100000 || r > 100000) {
-        throw exception("数据超出范围限制");
+        string circle_str = "(x - " + to_string(x) + ") ^ 2 + (y - " + to_string(y) + ") ^ 2 = " + to_string(r) + " ^ 2";
+        string message = "数据超出范围限制 : " + circle_str;
+        throw exception(message.c_str());
     }
 
     this->center = new Point(x, y);
@@ -115,13 +119,13 @@ long double calculateDistanceBetweenPoints(const Point& point1, const Point& poi
 
 Line getCommonLineBetweenCricles(const Circle& c1, const Circle c2) {
     if (MathUtil::d_equal(c1.center->y, c2.center->y)) {
-        return Line(INT_MAX, ((pow(c1.r, 2) - pow(c2.r, 2)) / (c2.center->x - c1.center->x) + c1.center->x + c2.center->x) / 2);
+        return Line(INT_MAX, ((pow(c1.r, 2) - pow(c2.r, 2)) / ((long double) c2.center->x - c1.center->x) + c1.center->x + c2.center->x) / 2);
     }
 
-    const long double a = 2 * (c2.center->x - c1.center->x);
-    const long double b = 2 * (c2.center->y - c1.center->y);
-    const long double c = (pow(c1.center->x, 2) + pow(c1.center->y, 2) - pow(c1.r, 2)) -
-        (pow(c2.center->x, 2) + pow(c2.center->y, 2) - pow(c2.r, 2));
+    const long double a = 2 * ((long double) c2.center->x - c1.center->x);
+    const long double b = 2 * ((long double) c2.center->y - c1.center->y);
+    const long double c = ((long double) pow(c1.center->x, 2) + pow(c1.center->y, 2) - pow(c1.r, 2)) -
+        ((long double) pow(c2.center->x, 2) + pow(c2.center->y, 2) - pow(c2.r, 2));
 
     return Line(-a / b, -c / b);
 }

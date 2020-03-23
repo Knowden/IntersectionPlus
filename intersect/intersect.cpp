@@ -31,9 +31,15 @@ int main(int argc, const char** argv) {
 	string output_file_path = string(argv[4]);
 
 	vector<string> components = read_input_file(input_file_path);
-	for (string component : components) {
-		s.add_component(component);
+	
+	try {
+		for (string component : components) {
+			s.add_component(component);
+		}
+		write_result_to_output_file(output_file_path, s.count_result());
 	}
-
-	write_result_to_output_file(output_file_path, s.count_result());
+	catch (exception e) {
+		cout << e.what();
+		return 0;
+	}
 }
